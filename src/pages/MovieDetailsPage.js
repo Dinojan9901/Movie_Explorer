@@ -21,7 +21,6 @@ import {
   IconButton,
   Paper,
   useTheme,
-  CircularProgress,
   Alert
 } from '@mui/material';
 import {
@@ -107,10 +106,10 @@ const MovieDetailsPage = () => {
         </Box>
         
         <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Skeleton variant="rectangular" height={450} sx={{ borderRadius: 2 }} />
           </Grid>
-          <Grid item xs={12} md={8}>
+          <Grid size={{ xs: 12, md: 8 }}>
             <Skeleton variant="text" height={60} sx={{ mb: 2 }} />
             <Skeleton variant="text" height={30} width="70%" sx={{ mb: 1 }} />
             <Skeleton variant="text" height={30} width="50%" sx={{ mb: 2 }} />
@@ -200,7 +199,7 @@ const MovieDetailsPage = () => {
       
       <Grid container spacing={4}>
         {/* Movie Poster */}
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <CardMedia
               component="img"
@@ -238,7 +237,7 @@ const MovieDetailsPage = () => {
         </Grid>
         
         {/* Movie Details */}
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
             <Rating
               value={movie.vote_average / 2}
@@ -253,7 +252,7 @@ const MovieDetailsPage = () => {
           
           <Box sx={{ mb: 3 }}>
             <Grid container spacing={2}>
-              <Grid item>
+              <Grid>
                 <Typography variant="body2" color="text.secondary">
                   Release Date:
                 </Typography>
@@ -262,7 +261,7 @@ const MovieDetailsPage = () => {
                 </Typography>
               </Grid>
               
-              <Grid item>
+              <Grid>
                 <Typography variant="body2" color="text.secondary">
                   Runtime:
                 </Typography>

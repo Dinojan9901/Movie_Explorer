@@ -24,8 +24,8 @@ const SearchResultsPage = () => {
     }
   }, [dispatch, query]);
 
-  const handleLoadMore = (nextPage) => {
-    dispatch(fetchSearchResults({ query, page: nextPage }));
+  const handleLoadMore = () => {
+    dispatch(fetchSearchResults({ query, page: page + 1 }));
   };
 
   if (!query) {

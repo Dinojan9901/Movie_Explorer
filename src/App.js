@@ -16,6 +16,7 @@ import MovieDetailsPage from './pages/MovieDetailsPage';
 import FavoritesPage from './pages/FavoritesPage';
 import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
+import StarWarsPage from './pages/StarWarsPage';
 
 // Protected route component
 const ProtectedRoute = ({ children }) => {
@@ -52,6 +53,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/trending" element={<TrendingPage />} />
+              <Route path="/star-wars" element={<StarWarsPage />} />
               <Route path="/search" element={<SearchResultsPage />} />
               <Route path="/movie/:id" element={<MovieDetailsPage />} />
               <Route 

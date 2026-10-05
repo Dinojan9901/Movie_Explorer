@@ -18,22 +18,17 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const theme = useTheme();
   
-  const { movies, status, error, page, totalPages } = useSelector(
+  const { movies, status, error } = useSelector(
     (state) => state.movies.trending
   );
   
   const isLoading = status === 'loading';
-  const hasMore = page < totalPages;
 
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchTrendingMovies());
     }
   }, [dispatch, status]);
-
-  const handleLoadMore = (nextPage) => {
-    dispatch(fetchTrendingMovies(nextPage));
-  };
 
   return (
     <Container maxWidth="xl">
@@ -66,7 +61,7 @@ const HomePage = () => {
           }}
         />
         <Grid container>
-          <Grid item md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box
               sx={{
                 position: 'relative',

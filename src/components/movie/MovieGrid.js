@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { 
   Grid, 
   Box, 
@@ -22,7 +22,6 @@ const MovieGrid = ({
   emptyMessage = "No movies found" 
 }) => {
   const theme = useTheme();
-  const [page, setPage] = useState(1);
   
   // For infinite scrolling
   const { ref, inView } = useInView({
@@ -31,12 +30,11 @@ const MovieGrid = ({
   });
   
   const loadMoreMovies = useCallback(() => {
+    // The caller owns pagination state, so it decides which page comes next.
     if (onLoadMore && !loading && hasMore) {
-      const nextPage = page + 1;
-      onLoadMore(nextPage);
-      setPage(nextPage);
+      onLoadMore();
     }
-  }, [onLoadMore, loading, hasMore, page]);
+  }, [onLoadMore, loading, hasMore]);
   
   // Handle infinite scroll
   useEffect(() => {
@@ -48,7 +46,7 @@ const MovieGrid = ({
   // Create skeleton loaders when loading
   const renderSkeletons = () => {
     return Array(8).fill(0).map((_, index) => (
-      <Grid item xs={6} sm={4} md={3} lg={2} key={`skeleton-${index}`}>
+      <Grid size={{ xs: 6, sm: 4, md: 3, lg: 2 }} key={`skeleton-${index}`}>
         <MovieCard loading={true} />
       </Grid>
     ));
@@ -86,7 +84,7 @@ const MovieGrid = ({
       
       <Grid container spacing={3}>
         {movies.map((movie) => (
-          <Grid item xs={6} sm={4} md={3} lg={2} key={movie.id}>
+          <Grid size={{ xs: 6, sm: 4, md: 3, lg: 2 }} key={movie.id}>
             <MovieCard movie={movie} />
           </Grid>
         ))}

@@ -16,6 +16,7 @@ import {
   Drawer, 
   List, 
   ListItem, 
+  ListItemButton, 
   ListItemText, 
   ListItemIcon 
 } from '@mui/material';
@@ -23,7 +24,6 @@ import {
   Search as SearchIcon, 
   Brightness4 as DarkModeIcon, 
   Brightness7 as LightModeIcon, 
-  AccountCircle, 
   Favorite as FavoriteIcon, 
   Menu as MenuIcon,
   Home as HomeIcon,
@@ -101,25 +101,31 @@ const Header = () => {
         Movie Explorer
       </Typography>
       <List>
-        <ListItem component={Link} to="/" button>
+        <ListItemButton component={Link} to="/">
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
           <ListItemText primary="Home" />
-        </ListItem>
-        <ListItem component={Link} to="/trending" button>
+        </ListItemButton>
+        <ListItemButton component={Link} to="/trending">
           <ListItemIcon>
             <MovieIcon />
           </ListItemIcon>
           <ListItemText primary="Trending" />
-        </ListItem>
+        </ListItemButton>
+        <ListItemButton component={Link} to="/star-wars">
+          <ListItemIcon>
+            <MovieIcon />
+          </ListItemIcon>
+          <ListItemText primary="Star Wars" />
+        </ListItemButton>
         {isAuthenticated && (
-          <ListItem component={Link} to="/favorites" button>
+          <ListItemButton component={Link} to="/favorites">
             <ListItemIcon>
               <FavoriteIcon />
             </ListItemIcon>
             <ListItemText primary="Favorites" />
-          </ListItem>
+          </ListItemButton>
         )}
         <ListItem>
           <ListItemIcon>
@@ -168,6 +174,9 @@ const Header = () => {
               </Button>
               <Button color="inherit" component={Link} to="/trending">
                 Trending
+              </Button>
+              <Button color="inherit" component={Link} to="/star-wars">
+                Star Wars
               </Button>
               {isAuthenticated && (
                 <Button color="inherit" component={Link} to="/favorites">

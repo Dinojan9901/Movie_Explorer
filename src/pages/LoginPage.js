@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Container,
@@ -122,7 +122,7 @@ const LoginPage = () => {
             </Button>
             
             <Grid container justifyContent="center">
-              <Grid item>
+              <Grid>
                 <Typography variant="body2" color="text.secondary">
                   Demo: any username and password (min 6 chars)
                 </Typography>

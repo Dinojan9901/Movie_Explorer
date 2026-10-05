@@ -82,12 +82,13 @@ const moviesSlice = createSlice({
   initialState,
   reducers: {
     setSearchQuery: (state, action) => {
-      state.search.query = action.payload;
       // Reset search results when query changes
       if (state.search.query !== action.payload) {
         state.search.movies = [];
         state.search.page = 1;
+        state.search.totalPages = 0;
       }
+      state.search.query = action.payload;
     },
     clearSearchResults: (state) => {
       state.search.movies = [];

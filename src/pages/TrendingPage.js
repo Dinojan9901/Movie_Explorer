@@ -20,8 +20,8 @@ const TrendingPage = () => {
     }
   }, [dispatch, status]);
 
-  const handleLoadMore = (nextPage) => {
-    dispatch(fetchTrendingMovies(nextPage));
+  const handleLoadMore = () => {
+    dispatch(fetchTrendingMovies(page + 1));
   };
 
   return (

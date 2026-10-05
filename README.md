@@ -13,6 +13,7 @@ A modern, responsive web application for discovering and exploring movies using 
 - **Dark/Light Mode**: Toggle between light and dark themes for better user experience
 - **Favorites**: Save your favorite movies for quick access (requires login)
 - **Infinite Scrolling**: Load more content as you scroll for a seamless experience
+- **Star Wars Saga (GraphQL)**: A page powered by a GraphQL API, with episode/release ordering
 
 ## 🚀 Technology Stack
 
@@ -22,6 +23,7 @@ A modern, responsive web application for discovering and exploring movies using 
 - **Material UI**: Modern, responsive component library for consistent design
 - **Axios**: HTTP client for API requests
 - **TMDb API**: External API for fetching movie data
+- **Apollo Client + GraphQL**: Querying the public Star Wars GraphQL API
 
 ## ⚙️ Installation and Setup
 
@@ -45,8 +47,8 @@ A modern, responsive web application for discovering and exploring movies using 
    ```
 
 3. Set up environment variables
-   - Rename the `.env` file to `.env.local`
-   - Replace `YOUR_TMDB_API_KEY_HERE` with your actual TMDb API key
+   - Copy `.env` to `.env.local` (`.env.local` is git-ignored)
+   - In `.env.local`, replace `YOUR_TMDB_API_KEY_HERE` with your actual TMDb API key
 
 4. Start the development server
    ```bash
@@ -60,17 +62,16 @@ A modern, responsive web application for discovering and exploring movies using 
 ```
 ├── public/                 # Public assets
 ├── src/                    # Source files
-│   ├── assets/             # Static assets
 │   ├── components/         # Reusable components
 │   │   ├── common/         # Common UI components
 │   │   └── movie/          # Movie-specific components
-│   ├── hooks/              # Custom React hooks
+│   ├── graphql/            # Apollo client and GraphQL queries
 │   ├── pages/              # Page components
 │   ├── redux/              # Redux state management
 │   │   └── slices/         # Redux toolkit slices
 │   ├── services/           # API and other services
 │   └── utils/              # Utility functions
-├── .env                    # Environment variables
+├── .env                    # Environment variable template (no real keys)
 └── README.md              # Project documentation
 ```
 
@@ -92,7 +93,9 @@ The application can be deployed using any static site hosting service like Verce
    npm run build
    ```
 
-2. Deploy to Vercel:
+2. In the Vercel project settings, add the `REACT_APP_TMDB_API_KEY` environment variable. The key is not committed to the repository.
+
+3. Deploy to Vercel:
    ```bash
    vercel --prod
    ```
@@ -106,6 +109,16 @@ This project uses the TMDb API v3. The main endpoints used are:
 - `/movie/{id}` - Get detailed movie information
 - `/movie/{id}/videos` - Get movie trailers
 - `/movie/{id}/credits` - Get movie cast information
+
+### GraphQL: Star Wars Saga page
+
+The `/star-wars` page uses [Apollo Client](https://www.apollographql.com/docs/react/) to query the public [Star Wars GraphQL API](https://swapi-graphql.netlify.app/graphql). The API allows cross-origin requests, so no proxy or API key is needed.
+
+- `src/graphql/client.js`: the Apollo client, with an `InMemoryCache` so revisiting the page reuses the stored result
+- `src/graphql/queries.js`: one `GET_STAR_WARS_FILMS` query that returns every film plus its character, planet, species and starship counts. With a REST API, the same page would need a request per film and per related resource.
+- `src/pages/StarWarsPage.js`: renders the films with `useQuery`, with loading and error states (including Retry) and a toggle between episode and release order
+
+The page is tested in `src/pages/StarWarsPage.test.js` with Apollo's `MockedProvider`, so the tests never call the real API.
 
 ## ✨ Future Enhancements
 
@@ -123,5 +136,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 🙏 Acknowledgements
 
 - [TMDb](https://www.themoviedb.org/) for providing the movie data API
+- [SWAPI GraphQL](https://github.com/graphql/swapi-graphql) for the Star Wars GraphQL API
 - [Material UI](https://mui.com/) for the component library
 - [React](https://reactjs.org/) and its community for the amazing tools and libraries
